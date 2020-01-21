@@ -9,6 +9,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets, QtQuickWidgets
 import encode_faces as enc
+import cluster_faces as cls
 import os
 
 class Ui_MainWindow(object):
@@ -78,6 +79,12 @@ class Ui_MainWindow(object):
         self.encodingsDestinoLbl = QtWidgets.QLabel(self.centralwidget)
         self.encodingsDestinoLbl.setGeometry(QtCore.QRect(10, 120, 81, 16))
         self.encodingsDestinoLbl.setObjectName("encodingsDestinoLbl")
+        self.testebtn = QtWidgets.QPushButton(self.centralwidget)
+        self.testebtn.setGeometry(QtCore.QRect(340, 290, 75, 23))
+        self.testebtn.setObjectName("testebtn")
+        self.testelbl = QtWidgets.QLabel(self.centralwidget)
+        self.testelbl.setGeometry(QtCore.QRect(430, 290, 47, 13))
+        self.testelbl.setObjectName("testelbl")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 867, 21))
@@ -102,13 +109,16 @@ class Ui_MainWindow(object):
         self.encodingBtn.clicked.connect(self.CriaEmbedding)
         
         #Quando aperta "Agrupar"
-        self.clusterBtn.clicked.connect(self.teste1)
+        self.clusterBtn.clicked.connect(self.CriaCluster)
         
         #Quando aperta no segundo "..."
         self.encodingsDestinoBtn.clicked.connect(self.enderecoDestinoEnc)
         
         #Quando aperta o terceiro "..."
         self.encodingEnderecoBtn.clicked.connect(self.enderecoEnc)
+        
+        #Quando aperta o "teste"
+        self.testebtn.clicked.connect(self.teste1)        
         
 
     def retranslateUi(self, MainWindow):
@@ -133,6 +143,9 @@ class Ui_MainWindow(object):
         self.lblEncodingSelecionado.setText(_translate("MainWindow", "Docs/Encodings/Enc_verao"))
         self.encodingsDestinoBtn.setText(_translate("MainWindow", "..."))
         self.encodingsDestinoLbl.setText(_translate("MainWindow", "Pasta Destino"))
+        self.testebtn.setText(_translate("MainWindow", "Teste"))
+        self.testelbl.setText(_translate("MainWindow", "¿¿¿¿¿¿¿¿"))
+
     def teste1(self):
         #aux = self.datasetLbl.text
         #print("z")
@@ -142,7 +155,7 @@ class Ui_MainWindow(object):
         texto_lineEdit = self.nomeEncLe.text()
         
         #faz ele aparecer em um label especifico
-        self.lblResultAgrupar.setText(texto_lineEdit)
+        self.testelbl.setText(texto_lineEdit)
     
         #print(str(aux))
         
@@ -167,18 +180,22 @@ class Ui_MainWindow(object):
     	self.encodingResultlbl.setText(caminho)        
     
     def enderecoEnc(self):
-    	#função para pegar o endereço do ARQUIVO **getOpenFileName
+    	#função para pegar o endereço do ARQUIVO **getOpenFileName, porém ela o retorna em uma tupla, é preciso tratar a string
     	caminho = str(QtWidgets.QFileDialog.getOpenFileName(None, "Select Directory"))   
-    	print(type(caminho))           
+    	#print(type(caminho))           
        	#print(type(caminho)) hrs, mins, secs = tim.split(':')
     	a = caminho          
     	#b=a.split()       
     	x, y = a.split(',')        
-    	print(x)        
-    	print(y)               
+    	#print(x)
+    	#z é o endereço já tratado, [2:-1] é para tirar (' e  ' respectivamente.       
+    	z = x[2:-1]
+    	#print(z)
+    	#print()         
     	#caminho = QtWidgets.QFileDialog.getOpenFileName(None);        
     	#caminho = QtWidgets.QFileDialog.getExistingDirectory(None, "Select Directory")
-    	self.lblEncodingSelecionado.setText(caminho)           
+    	self.lblEncodingSelecionado.setText(z)           
+
 
     def getCaminhoDataset(self):
     	#retorna o texto do label, uma vez que ficou gravado lá o resultado da função em enderecoDataset
@@ -201,6 +218,14 @@ class Ui_MainWindow(object):
         enc.encode('hog',x,a,y)
     	#enc.alo()
 
+    def CriaCluster(self):
+    
+        #texto referente a oendereco do encoding
+        h = self.lblEncodingSelecionado.text()
+        
+        print(h)        
+        print(type(h))   
+        cls.cluster(h)
 
     	
 
