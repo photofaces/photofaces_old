@@ -31,8 +31,12 @@ def cluster(endereco_enc):
     #pickle.loads(open(args["encodings"], "rb").read())  
     data = pickle.loads(open(endereco_enc, "rb").read())
     data = np.array(data)
+    print("This is the data")    
+    #print(data)       
     encodings = [d["encoding"] for d in data]
-
+    #print(encodings)
+    data = np.array(data)
+    print("This is the encoding")        
     # cluster the embeddings
     print("[INFO] clustering...")
 
@@ -92,8 +96,8 @@ def cluster(endereco_enc):
         print("[INFO] faces for face ID: {}".format(labelID))
         #print("AAA" +str(labelID))
         idxs = np.where(clt.labels_ == labelID)[0]
-        print("clt label:"+ str(clt.labels_))
-        print("idx: " +str(idxs))        
+        #print("clt label:"+ str(clt.labels_))
+        #print("idx: " +str(idxs))        
         idxs = np.random.choice(idxs, size=min(25, len(idxs)),
             replace=False)
 
@@ -104,6 +108,15 @@ def cluster(endereco_enc):
         for i in idxs:
             # load the input image and extract the face ROI
             image = cv2.imread(data[i]["imagePath"])
+            #print(type(data)) 
+            #print(data[0])
+            #b = data.tolist()data[i]["imagePath"]
+            # ALASSSS I FOUND YA MUAHAHAHAHAHAHAHAHA
+            print(data[i]["imagePath"])            
+            
+            #a = np.array(a.tolist())
+            #print(b[0][0])
+            #print(type(b))            
             (top, right, bottom, left) = data[i]["loc"]
             face = image[top:bottom, left:right]
 
