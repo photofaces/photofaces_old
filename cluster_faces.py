@@ -119,43 +119,29 @@ def cluster(endereco_enc,origem_fotos, destino_fotos):
         
         
         
+        #endereco_pasta = os.path.join(data[i]["imagePath"], destino_fotos, str(labelIDS))
+          
+        endereco_pasta = os.path.join( destino_fotos, str(labelID))  
+        
+        Cria_Pastas(endereco_pasta)
 
-
-
+    
             
 
         # loop over the sampled indexes
         for i in idxs:
             # load the input image and extract the face ROI
             image = cv2.imread(data[i]["imagePath"])
-            #print(type(data)) 
-            #print(data[0])
-            #b = data.tolist()data[i]["imagePath"]
+
             # ALASSSS I FOUND YA MUAHAHAHAHAHAHAHAHA
             #print(data[i]["imagePath"])            
             
-            
-            
-            #a = np.array(a.tolist())
-            #J = np.array(data[i]["imagePath"].tolist())
-            #b = [ ]
-            #b.append(data[i]["imagePath"])
-            #print(b)
-            
-            
-            
-       
+           
+           
+            #então, coloca as fotos lá dentro
+            Move_Fotos(data[i]["imagePath"],endereco_pasta)
 
-            #lst3 = [value for value in b if value in endereco_fotos_dataset] 
-            #print(lst3)
-            
-            
-            #b = list(data)
-            #print(b[]["imagePath"])
-            
-            #print(J)            
-            #print(b[0][0])
-            #print(type(b))            
+
             (top, right, bottom, left) = data[i]["loc"]
             face = image[top:bottom, left:right]
 
@@ -167,37 +153,7 @@ def cluster(endereco_enc,origem_fotos, destino_fotos):
         # create a montage using 96x96 "tiles" with 5 rows and 5 columns
         
         
-        
-    
-        #nome da pasta de cada rosto
-        endereco_pasta = os.path.join(data[i]["imagePath"], destino_fotos, str(i))
-        #endereco_pasta = (str(i))
 
-        print("o nome da pasta é: " +destino_fotos)
-        
-        #só cria se esse nome ainda não existe
-        if not os.path.exists(endereco_pasta):
-            os.mkdir(endereco_pasta)
-
-
-
-        #então, coloca as fotos lá dentro
-        Move_Fotos(data[i]["imagePath"],endereco_pasta)
-    
-         
-
-        
-    
-        
-        
-        
-        
-        
-        
-        
-        
-       
-        
         montage = build_montages(faces, (96, 96), (5, 5))[0]
         
         # show the output montage
@@ -214,6 +170,12 @@ def Move_Fotos(origem, destino):
     
     print("realizando copia de fotos")
     shutil.copy(origem, destino)
+    
+def Cria_Pastas(endereco):
+
+        if not os.path.exists(endereco):
+            os.mkdir(endereco)
+   
     
         
         
