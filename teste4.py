@@ -12,6 +12,7 @@ import encode_faces as enc
 import cluster_faces as cls
 import os
 
+
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -19,7 +20,7 @@ class Ui_MainWindow(object):
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.clusterBtn = QtWidgets.QPushButton(self.centralwidget)
-        self.clusterBtn.setGeometry(QtCore.QRect(120, 290, 75, 23))
+        self.clusterBtn.setGeometry(QtCore.QRect(90, 360, 75, 23))
         self.clusterBtn.setObjectName("clusterBtn")
         self.datasetLbl = QtWidgets.QLabel(self.centralwidget)
         self.datasetLbl.setGeometry(QtCore.QRect(10, 10, 47, 13))
@@ -49,7 +50,7 @@ class Ui_MainWindow(object):
         self.encodingResultlbl.setGeometry(QtCore.QRect(50, 140, 491, 16))
         self.encodingResultlbl.setObjectName("encodingResultlbl")
         self.lblResultAgrupar = QtWidgets.QLabel(self.centralwidget)
-        self.lblResultAgrupar.setGeometry(QtCore.QRect(210, 290, 47, 13))
+        self.lblResultAgrupar.setGeometry(QtCore.QRect(180, 360, 47, 13))
         self.lblResultAgrupar.setObjectName("lblResultAgrupar")
         self.quickWidget = QtQuickWidgets.QQuickWidget(self.centralwidget)
         self.quickWidget.setGeometry(QtCore.QRect(-100, 470, 300, 200))
@@ -80,11 +81,20 @@ class Ui_MainWindow(object):
         self.encodingsDestinoLbl.setGeometry(QtCore.QRect(10, 120, 81, 16))
         self.encodingsDestinoLbl.setObjectName("encodingsDestinoLbl")
         self.testebtn = QtWidgets.QPushButton(self.centralwidget)
-        self.testebtn.setGeometry(QtCore.QRect(340, 290, 75, 23))
+        self.testebtn.setGeometry(QtCore.QRect(460, 360, 75, 23))
         self.testebtn.setObjectName("testebtn")
         self.testelbl = QtWidgets.QLabel(self.centralwidget)
-        self.testelbl.setGeometry(QtCore.QRect(430, 290, 47, 13))
+        self.testelbl.setGeometry(QtCore.QRect(540, 360, 47, 13))
         self.testelbl.setObjectName("testelbl")
+        self.destinoFtosolbl = QtWidgets.QLabel(self.centralwidget)
+        self.destinoFtosolbl.setGeometry(QtCore.QRect(0, 290, 47, 13))
+        self.destinoFtosolbl.setObjectName("destinoFtosolbl")
+        self.destinoFotosBtn = QtWidgets.QToolButton(self.centralwidget)
+        self.destinoFotosBtn.setGeometry(QtCore.QRect(10, 310, 25, 19))
+        self.destinoFotosBtn.setObjectName("destinoFotosBtn")
+        self.pastaDestinoLbl = QtWidgets.QLabel(self.centralwidget)
+        self.pastaDestinoLbl.setGeometry(QtCore.QRect(40, 310, 641, 16))
+        self.pastaDestinoLbl.setObjectName("pastaDestinoLbl")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 867, 21))
@@ -104,23 +114,25 @@ class Ui_MainWindow(object):
         
         #Quando aperta "..."
         self.datasetBtn.clicked.connect(self.enderecoDataset)
+        
+        #Quando aperta no segundo "..."
+        self.encodingsDestinoBtn.clicked.connect(self.enderecoDestinoEnc)        
 
         #Quando aperta "criar encoding"
         self.encodingBtn.clicked.connect(self.CriaEmbedding)
         
-        #Quando aperta "Agrupar"
-        self.clusterBtn.clicked.connect(self.CriaCluster)
-        
-        #Quando aperta no segundo "..."
-        self.encodingsDestinoBtn.clicked.connect(self.enderecoDestinoEnc)
-        
         #Quando aperta o terceiro "..."
-        self.encodingEnderecoBtn.clicked.connect(self.enderecoEnc)
+        self.encodingEnderecoBtn.clicked.connect(self.enderecoEnc)        
         
+        #Quando aperta o quarto "..."
+        self.destinoFotosBtn.clicked.connect(self.enderecoDestinoFotos)
+        
+        #Quando aperta "Agrupar"
+        self.clusterBtn.clicked.connect(self.CriaCluster)   
+
         #Quando aperta o "teste"
         self.testebtn.clicked.connect(self.teste1)        
         
-
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
@@ -142,10 +154,13 @@ class Ui_MainWindow(object):
         self.encodingEnderecoLbl.setText(_translate("MainWindow", "Encoding"))
         self.lblEncodingSelecionado.setText(_translate("MainWindow", "Docs/Encodings/Enc_verao"))
         self.encodingsDestinoBtn.setText(_translate("MainWindow", "..."))
-        self.encodingsDestinoLbl.setText(_translate("MainWindow", "Pasta Destino"))
+        self.encodingsDestinoLbl.setText(_translate("MainWindow", " Destino"))
         self.testebtn.setText(_translate("MainWindow", "Teste"))
         self.testelbl.setText(_translate("MainWindow", "¿¿¿¿¿¿¿¿"))
-
+        self.destinoFtosolbl.setText(_translate("MainWindow", "Destino das FotosVerão2020"))
+        self.destinoFotosBtn.setText(_translate("MainWindow", "..."))
+        self.pastaDestinoLbl.setText(_translate("MainWindow", "Docs/Resultado1PhotoFaces"))
+        
     def teste1(self):
         #aux = self.datasetLbl.text
         #print("z")
@@ -194,8 +209,12 @@ class Ui_MainWindow(object):
     	#print()         
     	#caminho = QtWidgets.QFileDialog.getOpenFileName(None);        
     	#caminho = QtWidgets.QFileDialog.getExistingDirectory(None, "Select Directory")
-    	self.lblEncodingSelecionado.setText(z)           
+    	self.lblEncodingSelecionado.setText(z)   
 
+    def enderecoDestinoFotos(self):
+        path = QtWidgets.QFileDialog.getExistingDirectory(None, "Select Directory")
+        caminho = str(path)
+        self.pastaDestinoLbl.setText(caminho)
 
     def getCaminhoDataset(self):
     	#retorna o texto do label, uma vez que ficou gravado lá o resultado da função em enderecoDataset
@@ -223,9 +242,14 @@ class Ui_MainWindow(object):
         #texto referente a oendereco do encoding
         h = self.lblEncodingSelecionado.text()
         
-        print(h)        
-        print(type(h))   
-        cls.cluster(h)
+        #pasta origem
+        o = self.lblEnderecoDataset.text()        
+        #pasta destino
+        i = self.pastaDestinoLbl.text()
+        
+        #print(h)        
+        #print(type(h))   
+        cls.cluster(h,o,i)
 
     	
 

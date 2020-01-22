@@ -10,6 +10,9 @@ import argparse
 import pickle
 import cv2
 import time #medir tempo
+import os
+import shutil
+
 
 # construct the argument parser and parse the arguments
 def teste():
@@ -22,21 +25,22 @@ def teste():
 #	help="# of parallel jobs to run (-1 will use all CPUs)")
 #args = vars(ap.parse_args())
 
-def cluster(endereco_enc):
+def cluster(endereco_enc,origem_fotos, destino_fotos):
     # load the serialized face encodings + bounding box locations from
     # disk, then extract the set of encodings to so we can cluster on
     # them
-    #print(endereco_enc)    
+    #print("AAAA")    
+    #print(destino_fotos)     
     print("[INFO] loading encodings...")
     #pickle.loads(open(args["encodings"], "rb").read())  
     data = pickle.loads(open(endereco_enc, "rb").read())
     data = np.array(data)
-    print("This is the data")    
+    #print("This is the data")    
     #print(data)       
     encodings = [d["encoding"] for d in data]
     #print(encodings)
     data = np.array(data)
-    print("This is the encoding")        
+    #print("This is the encoding")        
     # cluster the embeddings
     print("[INFO] clustering...")
 
@@ -74,7 +78,8 @@ def cluster(endereco_enc):
 
     fim = time.time()
 
-    print("O tempo de execução foi:" + str(fim - inicio))
+    #depois de arrumar as funcionalidades, VOLTAR
+    #print("O tempo de execução foi:" + str(fim - inicio))
 
 
     # y_true é um array com os verdadeiros, y_pred, é o resultado
@@ -88,6 +93,14 @@ def cluster(endereco_enc):
     numUniqueFaces = len(np.where(labelIDs > -1)[0])
     print("[INFO] # unique faces: {}".format(numUniqueFaces))
 
+    
+    #print( "esta é a lista GGGGGGGGGGGGGGGGGGGGGGGGG:" )
+    #endereco_fotos_dataset = Identifica_fotos(origem_fotos, destino_fotos)     
+    
+    #print(endereco_fotos_dataset)
+    
+    #print(g)
+    #print(type(g))
     # loop over the unique face integers
     for labelID in labelIDs:
         # find all indexes into the `data` array that belong to the
@@ -103,6 +116,13 @@ def cluster(endereco_enc):
 
         # initialize the list of faces to include in the montage
         faces = []
+        
+        
+        
+
+
+
+            
 
         # loop over the sampled indexes
         for i in idxs:
@@ -112,9 +132,28 @@ def cluster(endereco_enc):
             #print(data[0])
             #b = data.tolist()data[i]["imagePath"]
             # ALASSSS I FOUND YA MUAHAHAHAHAHAHAHAHA
-            print(data[i]["imagePath"])            
+            #print(data[i]["imagePath"])            
+            
+            
             
             #a = np.array(a.tolist())
+            #J = np.array(data[i]["imagePath"].tolist())
+            #b = [ ]
+            #b.append(data[i]["imagePath"])
+            #print(b)
+            
+            
+            
+       
+
+            #lst3 = [value for value in b if value in endereco_fotos_dataset] 
+            #print(lst3)
+            
+            
+            #b = list(data)
+            #print(b[]["imagePath"])
+            
+            #print(J)            
             #print(b[0][0])
             #print(type(b))            
             (top, right, bottom, left) = data[i]["loc"]
@@ -126,6 +165,39 @@ def cluster(endereco_enc):
             faces.append(face)
 
         # create a montage using 96x96 "tiles" with 5 rows and 5 columns
+        
+        
+        
+    
+        #nome da pasta de cada rosto
+        endereco_pasta = os.path.join(data[i]["imagePath"], destino_fotos, str(i))
+        #endereco_pasta = (str(i))
+
+        print("o nome da pasta é: " +destino_fotos)
+        
+        #só cria se esse nome ainda não existe
+        if not os.path.exists(endereco_pasta):
+            os.mkdir(endereco_pasta)
+
+
+
+        #então, coloca as fotos lá dentro
+        Move_Fotos(data[i]["imagePath"],endereco_pasta)
+    
+         
+
+        
+    
+        
+        
+        
+        
+        
+        
+        
+        
+       
+        
         montage = build_montages(faces, (96, 96), (5, 5))[0]
         
         # show the output montage
@@ -133,3 +205,17 @@ def cluster(endereco_enc):
         title = "Unknown Faces" if labelID == -1 else title
         cv2.imshow(title, montage)
         cv2.waitKey(0)
+ 
+ 
+ #origem
+ #destino
+ 
+def Move_Fotos(origem, destino):
+    
+    print("realizando copia de fotos")
+    shutil.copy(origem, destino)
+    
+        
+        
+
+ 
