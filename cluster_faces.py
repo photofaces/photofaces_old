@@ -47,7 +47,7 @@ def cluster(endereco_enc,origem_fotos, destino_fotos):
     inicio = time.time()
 
     #num correto de clusters = 8
-    clt = KMeans(n_clusters=4, init='k-means++', n_init=10, max_iter=300, tol=0.0001, precompute_distances='auto', verbose=0, random_state=None, copy_x=True, n_jobs=None, algorithm='auto')
+    clt = KMeans(n_clusters=5 , init='k-means++', n_init=10, max_iter=300, tol=0.0001, precompute_distances='auto', verbose=0, random_state=None, copy_x=True, n_jobs=None, algorithm='auto')
     #print(clt)
 
 
@@ -157,10 +157,10 @@ def cluster(endereco_enc,origem_fotos, destino_fotos):
         montage = build_montages(faces, (96, 96), (5, 5))[0]
         
         # show the output montage
-        title = "Face ID #{}".format(labelID)
-        title = "Unknown Faces" if labelID == -1 else title
-        cv2.imshow(title, montage)
-        cv2.waitKey(0)
+        #title = "Face ID #{}".format(labelID)
+        #title = "Unknown Faces" if labelID == -1 else title
+        #cv2.imshow(title, montage)
+        #cv2.waitKey(0)
  
  
  #origem

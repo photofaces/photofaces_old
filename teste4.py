@@ -11,93 +11,43 @@ from PyQt5 import QtCore, QtGui, QtWidgets, QtQuickWidgets
 import encode_faces as enc
 import cluster_faces as cls
 import os
+from datetime import datetime
+import pathlib
 
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(867, 484)
+        MainWindow.resize(858, 511)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.clusterBtn = QtWidgets.QPushButton(self.centralwidget)
-        self.clusterBtn.setGeometry(QtCore.QRect(90, 360, 75, 23))
+        self.clusterBtn.setGeometry(QtCore.QRect(690, 20, 75, 23))
         self.clusterBtn.setObjectName("clusterBtn")
         self.datasetLbl = QtWidgets.QLabel(self.centralwidget)
-        self.datasetLbl.setGeometry(QtCore.QRect(10, 10, 47, 13))
+        self.datasetLbl.setGeometry(QtCore.QRect(40, 0, 201, 16))
         self.datasetLbl.setObjectName("datasetLbl")
         self.metodoLbl = QtWidgets.QLabel(self.centralwidget)
-        self.metodoLbl.setGeometry(QtCore.QRect(0, 230, 131, 20))
+        self.metodoLbl.setGeometry(QtCore.QRect(500, 0, 131, 20))
         self.metodoLbl.setObjectName("metodoLbl")
         self.datasetBtn = QtWidgets.QToolButton(self.centralwidget)
-        self.datasetBtn.setGeometry(QtCore.QRect(10, 30, 25, 19))
+        self.datasetBtn.setGeometry(QtCore.QRect(10, 20, 25, 19))
         self.datasetBtn.setObjectName("datasetBtn")
         self.comboMethods = QtWidgets.QComboBox(self.centralwidget)
-        self.comboMethods.setGeometry(QtCore.QRect(0, 250, 181, 22))
+        self.comboMethods.setGeometry(QtCore.QRect(500, 20, 181, 22))
         self.comboMethods.setObjectName("comboMethods")
         self.comboMethods.addItem("")
         self.comboMethods.addItem("")
-        self.label = QtWidgets.QLabel(self.centralwidget)
-        self.label.setGeometry(QtCore.QRect(210, 250, 41, 21))
-        self.label.setTextFormat(QtCore.Qt.AutoText)
-        self.label.setObjectName("label")
         self.lblEnderecoDataset = QtWidgets.QLabel(self.centralwidget)
-        self.lblEnderecoDataset.setGeometry(QtCore.QRect(50, 30, 471, 21))
-        self.lblEnderecoDataset.setObjectName("lblEnderecoDataset")
-        self.encodingBtn = QtWidgets.QPushButton(self.centralwidget)
-        self.encodingBtn.setGeometry(QtCore.QRect(100, 160, 91, 23))
-        self.encodingBtn.setObjectName("encodingBtn")
-        self.encodingResultlbl = QtWidgets.QLabel(self.centralwidget)
-        self.encodingResultlbl.setGeometry(QtCore.QRect(50, 140, 491, 16))
-        self.encodingResultlbl.setObjectName("encodingResultlbl")
-        self.lblResultAgrupar = QtWidgets.QLabel(self.centralwidget)
-        self.lblResultAgrupar.setGeometry(QtCore.QRect(180, 360, 47, 13))
-        self.lblResultAgrupar.setObjectName("lblResultAgrupar")
+        self.lblEnderecoDataset.setGeometry(QtCore.QRect(40, 20, 381, 16))
+        self.lblEnderecoDataset.setObjectName("lblEnderecodataset")
         self.quickWidget = QtQuickWidgets.QQuickWidget(self.centralwidget)
         self.quickWidget.setGeometry(QtCore.QRect(-100, 470, 300, 200))
         self.quickWidget.setResizeMode(QtQuickWidgets.QQuickWidget.SizeRootObjectToView)
         self.quickWidget.setObjectName("quickWidget")
-        self.nomeEncLe = QtWidgets.QLineEdit(self.centralwidget)
-        self.nomeEncLe.setGeometry(QtCore.QRect(10, 90, 161, 20))
-        self.nomeEncLe.setObjectName("nomeEncLe")
-        self.lblresultNomeEnc = QtWidgets.QLabel(self.centralwidget)
-        self.lblresultNomeEnc.setGeometry(QtCore.QRect(180, 90, 111, 16))
-        self.lblresultNomeEnc.setObjectName("lblresultNomeEnc")
-        self.nomeEnclbl = QtWidgets.QLabel(self.centralwidget)
-        self.nomeEnclbl.setGeometry(QtCore.QRect(10, 70, 91, 16))
-        self.nomeEnclbl.setObjectName("nomeEnclbl")
-        self.encodingEnderecoBtn = QtWidgets.QToolButton(self.centralwidget)
-        self.encodingEnderecoBtn.setGeometry(QtCore.QRect(10, 210, 25, 19))
-        self.encodingEnderecoBtn.setObjectName("encodingEnderecoBtn")
-        self.encodingEnderecoLbl = QtWidgets.QLabel(self.centralwidget)
-        self.encodingEnderecoLbl.setGeometry(QtCore.QRect(0, 190, 47, 13))
-        self.encodingEnderecoLbl.setObjectName("encodingEnderecoLbl")
-        self.lblEncodingSelecionado = QtWidgets.QLabel(self.centralwidget)
-        self.lblEncodingSelecionado.setGeometry(QtCore.QRect(40, 210, 811, 16))
-        self.lblEncodingSelecionado.setObjectName("lblEncodingSelecionado")
-        self.encodingsDestinoBtn = QtWidgets.QToolButton(self.centralwidget)
-        self.encodingsDestinoBtn.setGeometry(QtCore.QRect(10, 140, 25, 19))
-        self.encodingsDestinoBtn.setObjectName("encodingsDestinoBtn")
-        self.encodingsDestinoLbl = QtWidgets.QLabel(self.centralwidget)
-        self.encodingsDestinoLbl.setGeometry(QtCore.QRect(10, 120, 81, 16))
-        self.encodingsDestinoLbl.setObjectName("encodingsDestinoLbl")
-        self.testebtn = QtWidgets.QPushButton(self.centralwidget)
-        self.testebtn.setGeometry(QtCore.QRect(460, 360, 75, 23))
-        self.testebtn.setObjectName("testebtn")
-        self.testelbl = QtWidgets.QLabel(self.centralwidget)
-        self.testelbl.setGeometry(QtCore.QRect(540, 360, 47, 13))
-        self.testelbl.setObjectName("testelbl")
-        self.destinoFtosolbl = QtWidgets.QLabel(self.centralwidget)
-        self.destinoFtosolbl.setGeometry(QtCore.QRect(0, 290, 47, 13))
-        self.destinoFtosolbl.setObjectName("destinoFtosolbl")
-        self.destinoFotosBtn = QtWidgets.QToolButton(self.centralwidget)
-        self.destinoFotosBtn.setGeometry(QtCore.QRect(10, 310, 25, 19))
-        self.destinoFotosBtn.setObjectName("destinoFotosBtn")
-        self.pastaDestinoLbl = QtWidgets.QLabel(self.centralwidget)
-        self.pastaDestinoLbl.setGeometry(QtCore.QRect(40, 310, 641, 16))
-        self.pastaDestinoLbl.setObjectName("pastaDestinoLbl")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 867, 21))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 858, 21))
         self.menubar.setObjectName("menubar")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
@@ -107,72 +57,110 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
-
-        self.retranslateUi(MainWindow)
-        QtCore.QMetaObject.connectSlotsByName(MainWindow)
-
         
         #Quando aperta "..."
         self.datasetBtn.clicked.connect(self.enderecoDataset)
         
         #Quando aperta no segundo "..."
-        self.encodingsDestinoBtn.clicked.connect(self.enderecoDestinoEnc)        
+        #self.encodingsDestinoBtn.clicked.connect(self.enderecoDestinoEnc)        
 
         #Quando aperta "criar encoding"
-        self.encodingBtn.clicked.connect(self.CriaEmbedding)
+        #self.encodingBtn.clicked.connect(self.CriaEmbedding)
         
         #Quando aperta o terceiro "..."
-        self.encodingEnderecoBtn.clicked.connect(self.enderecoEnc)        
+        #self.encodingEnderecoBtn.clicked.connect(self.enderecoEnc)        
         
         #Quando aperta o quarto "..."
-        self.destinoFotosBtn.clicked.connect(self.enderecoDestinoFotos)
+        #self.destinoFotosBtn.clicked.connect(self.enderecoDestinoFotos)
         
         #Quando aperta "Agrupar"
-        self.clusterBtn.clicked.connect(self.CriaCluster)   
+        self.clusterBtn.clicked.connect(self.teste1)   
 
         #Quando aperta o "teste"
-        self.testebtn.clicked.connect(self.teste1)        
-        
+        #self.testebtn.clicked.connect(self.teste1)        
+
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.clusterBtn.setText(_translate("MainWindow", "Agrupar"))
-        self.datasetLbl.setText(_translate("MainWindow", "Dataset"))
+        self.datasetLbl.setText(_translate("MainWindow", "Biblioteca de Fotos"))
         self.metodoLbl.setText(_translate("MainWindow", "Método de Agrupamento"))
         self.datasetBtn.setText(_translate("MainWindow", "..."))
         self.comboMethods.setItemText(0, _translate("MainWindow", "Não-Supervisionado (DBSCAN)"))
         self.comboMethods.setItemText(1, _translate("MainWindow", "Supervisionado (K-Means)"))
-        self.label.setText(_translate("MainWindow", "!!!"))
-        self.lblEnderecoDataset.setText(_translate("MainWindow", "Docs/FotosVerão2020"))
-        self.encodingBtn.setText(_translate("MainWindow", "Criar encoding"))
-        self.encodingResultlbl.setText(_translate("MainWindow", "????"))
-        self.lblResultAgrupar.setText(_translate("MainWindow", "¿¿¿¿¿¿¿¿"))
-        self.nomeEncLe.setText(_translate("MainWindow", "digite aqui..."))
-        self.lblresultNomeEnc.setText(_translate("MainWindow", "Ex: Enc_fotos_verao"))
-        self.nomeEnclbl.setText(_translate("MainWindow", "Nome do arquivo"))
-        self.encodingEnderecoBtn.setText(_translate("MainWindow", "..."))
-        self.encodingEnderecoLbl.setText(_translate("MainWindow", "Encoding"))
-        self.lblEncodingSelecionado.setText(_translate("MainWindow", "Docs/Encodings/Enc_verao"))
-        self.encodingsDestinoBtn.setText(_translate("MainWindow", "..."))
-        self.encodingsDestinoLbl.setText(_translate("MainWindow", " Destino"))
-        self.testebtn.setText(_translate("MainWindow", "Teste"))
-        self.testelbl.setText(_translate("MainWindow", "¿¿¿¿¿¿¿¿"))
-        self.destinoFtosolbl.setText(_translate("MainWindow", "Destino das FotosVerão2020"))
-        self.destinoFotosBtn.setText(_translate("MainWindow", "..."))
-        self.pastaDestinoLbl.setText(_translate("MainWindow", "Docs/Resultado1PhotoFaces"))
+        self.lblEnderecoDataset.setText(_translate("MainWindow", "????"))
         
     def teste1(self):
-        #aux = self.datasetLbl.text
-        #print("z")
-        
-        
         #pega o texto da line edit ( onde o usuario digita o nome do encoding)
-        texto_lineEdit = self.nomeEncLe.text()
+        #texto_lineEdit = self.nomeEncLe.text()
         
         #faz ele aparecer em um label especifico
-        self.testelbl.setText(texto_lineEdit)
-    
-        #print(str(aux))
+        #self.testelbl.setText(texto_lineEdit)
+        
+        
+        #pega o endereco do label
+        endereco_dataset  = self.lblEnderecoDataset.text()
+        
+        #endereco de onde criar a pasta com seu nome
+        pasta_config = os.path.join(endereco_dataset, str("config"))
+        
+        #o nome do encoding vai ser o do dia-minuto....
+        nome_enc = datetime.now().strftime("%d_%m_%Y_%H_%M_%S_")    
+  
+        #se ja nao existe um config
+        if not os.path.exists(pasta_config):
+            
+            #cria um
+            os.mkdir(pasta_config)          
+           
+        enc.encode('hog',endereco_dataset, nome_enc, pasta_config)
+        
+        #salva o numero do ultimo encoding, para usar no agrupamento
+        ultimo_encoding = pasta_config + "\\" +nome_enc    
+        print(ultimo_encoding)
+        
+        ## ---~~~---~~~~----~~~~
+        print("**********************************************************************")
+        #cria a pasta Resultado_Encoding na mesma do dataset
+        
+        print("#########################")
+        
+        #pegando o endereco antes do dataset para colocar a pasta de resultados
+        endereco_antes_dataset  =  pathlib.Path().absolute()
+        
+        #print(endereco_antes_dataset)        
+
+        pasta_resultados = os.path.join(endereco_antes_dataset, str("resultados"))
+        
+        if not os.path.exists(pasta_resultados):
+            os.mkdir(pasta_resultados)       
+
+       
+        nome_resultado_encoding = "Resultado_ " + nome_enc
+        pasta_resultado_atual = os.path.join(pasta_resultados, nome_resultado_encoding)
+        print(pasta_resultado_atual)
+        
+        if not os.path.exists(pasta_resultado_atual):
+            os.mkdir(pasta_resultado_atual)
+            
+        cls.cluster(ultimo_encoding, endereco_dataset, pasta_resultado_atual)      
+            
+            
+            
+        #resultado_ultimo_encoding = str("Resultado:" + ultimo_encoding)
+        #print(resultado_ultimo_encoding)
+        
+        #endereco_resultado_ultimo_encoding = os.path.join(pasta_resultado, str(resultado_ultimo_encoding))
+        #print(endereco_resultado_ultimo_encoding)
+        
+        #if not os.path.exists(endereco_resultado_ultimo_encoding):
+         #   os.mkdir(endereco_resultado_ultimo_encoding)
+        
+        
+
+            
+            #os.path past_config/config" +"/" "nome do encoding"
+        
         
 
     def Apertacombo(self):

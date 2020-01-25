@@ -8,11 +8,14 @@ import argparse
 import pickle
 import cv2
 import os
+
  
 
 def encode(metodo,endereco_fotos, nome_enc, endereco_destino):
     
 	#print("cheguei aqui")
+    
+    
 	imagePaths = list(paths.list_images(endereco_fotos))
 	print("AAAAA" + endereco_destino)
 	#print(nome_enc)
