@@ -8,14 +8,14 @@ import argparse
 import pickle
 import cv2
 import os
-
+import time #medir tempo
  
 
 def encode(metodo,endereco_fotos, nome_enc, endereco_destino):
     
 	#print("cheguei aqui")
     
-    
+	inicio = time.time()    
 	imagePaths = list(paths.list_images(endereco_fotos))
 	print("AAAAA" + endereco_destino)
 	#print(nome_enc)
@@ -60,6 +60,10 @@ def encode(metodo,endereco_fotos, nome_enc, endereco_destino):
    	#print( endereco_final)
 	f.close()
 	print("Encodings salvos em: " + endereco_final)	
+	fim = time.time()	    
+    
+	print("O tempo de execução dos encodings foi:" + str(fim - inicio))    
+    
 
 
 def alo():
