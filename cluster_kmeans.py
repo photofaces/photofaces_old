@@ -21,7 +21,8 @@ from itertools import cycle
 from sklearn.decomposition import PCA as sklearnPCA
 
 
-def cluster(endereco_enc,origem_fotos, destino_fotos):
+
+def cluster(endereco_enc,origem_fotos, destino_fotos, num_clusters):
 
     print("[INFO] loading encodings...")
  
@@ -48,8 +49,8 @@ def cluster(endereco_enc,origem_fotos, destino_fotos):
     #função para estimar o bandwidth
     bandwidth = estimate_bandwidth(encodings)
     
-    # substituir valor por bandwidth quando conveniente
-    clt = MeanShift(bandwidth = 0.49) #0.49
+    #Numero de clusters é determinado pelo usuário
+    clt = KMeans(n_clusters=num_clusters , init='k-means++', n_init=10, max_iter=300, tol=0.0001, precompute_distances='auto', verbose=0, random_state=None, copy_x=True, n_jobs=None, algorithm='auto')
     
     #realiza o agrupamento
     clt.fit(encodings)
